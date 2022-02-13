@@ -68,10 +68,12 @@ section {
     padding-left: 0;
     margin: 0;
     text-align: right;
+    border-bottom: 1px solid #333;
 }
 
 .navbar__menu li {
     display: inline-block;
+    color: black;
 }
 
 .navbar__menu .menu__link {
@@ -85,8 +87,12 @@ section {
 .navbar__menu .menu__link:hover {
     background: #333;
     color: #fff;
-    transition: ease 0.3s all;
+    transition: ease 0.5s all;
 }
+
+/* .navbar__menu .menu__link:visited {
+    color: black;
+} */
 
 /* Header Styles */
 .page__header {

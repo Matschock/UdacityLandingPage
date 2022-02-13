@@ -23,14 +23,21 @@
  * 
 */
 
-
+const main = document.querySelector('main');
+const navbar = document.querySelector('#navbar__list');
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
 
+// function template
+// function template(inputs) {
+//     console.log('a key was pressed');
+// }
+function styleNavBar(){
 
+}
 
 /**
  * End Helper Functions
@@ -39,6 +46,19 @@
 */
 
 // build the nav
+function populateNavBar() {
+    const sections = main.querySelectorAll('section');
+    // const fragment = navbar.createDocumentFragment(); 
+    for (let section of sections){
+        const newElement = document.createElement('li');
+        const sectionTextContent = section.firstElementChild.children[0].textContent;
+        const sectionID = section.id;
+        newElement.innerHTML = `<a href="#${sectionID}" class="menu__link">${sectionTextContent}</a>`
+        // fragment.appendChild(newElement);
+        navbar.appendChild(newElement)
+    }
+    // navbar.appendChild(fragment);
+} // End function populateNavBar
 
 
 // Add class 'active' to section when near top of viewport
@@ -54,6 +74,7 @@
 */
 
 // Build menu 
+document.addEventListener('DOMContentLoaded', populateNavBar());
 
 // Scroll to section on link click
 
