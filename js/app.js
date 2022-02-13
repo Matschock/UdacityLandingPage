@@ -25,19 +25,14 @@
 
 const main = document.querySelector('main');
 const navbar = document.querySelector('#navbar__list');
+const sections = main.querySelectorAll('section');
+
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
 
-// function template
-// function template(inputs) {
-//     console.log('a key was pressed');
-// }
-function styleNavBar(){
-
-}
 
 /**
  * End Helper Functions
@@ -46,8 +41,8 @@ function styleNavBar(){
 */
 
 // build the nav
-function populateNavBar() {
-    const sections = main.querySelectorAll('section');
+function populateNavBar(sections) {
+    // const sections = main.querySelectorAll('section');
     // const fragment = navbar.createDocumentFragment(); 
     for (let section of sections){
         const newElement = document.createElement('li');
@@ -65,6 +60,27 @@ function populateNavBar() {
 
 
 // Scroll to anchor ID using scrollTO event
+function scrollToElement(evt) {
+    // console.log('NodeName: ' + evt.target.nodeName);
+    // console.log('TextContent: ' + evt.target.textContent);
+    if (evt.target.nodeName.toLowerCase() === 'a') {
+        idtag = "#" + evt.target.textContent.split(" ").join("").toLowerCase(); // get Test without Spaces, all Lowercase
+        // console.log(idtag);
+        const currentSelection = document.querySelector(idtag)
+        evt.preventDefault();
+        window.scrollTo({ // scroll to section
+            top: currentSelection.offsetTop,
+            left: currentSelection.offsetLeft,
+            behavior: 'smooth'
+        });
+    } else { // scroll to top
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+}
 
 
 /**
@@ -74,7 +90,8 @@ function populateNavBar() {
 */
 
 // Build menu 
-document.addEventListener('DOMContentLoaded', populateNavBar());
+document.addEventListener('DOMContentLoaded', populateNavBar(sections));
+navbar.addEventListener('click', scrollToElement)
 
 // Scroll to section on link click
 
