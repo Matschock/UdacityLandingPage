@@ -90,10 +90,6 @@ section {
     transition: ease 0.5s all;
 }
 
-/* .navbar__menu .menu__link:visited {
-    color: black;
-} */
-
 /* Header Styles */
 .page__header {
     background: #fff;
@@ -101,6 +97,12 @@ section {
     top: 0;
     width: 100%;
     z-index: 5;
+}
+
+.active {
+    border: 2px solid rgba(56, 50, 45, 0.918);
+    border-radius: 4px;
+    /* color: #fff; */
 }
 
 /* Footer Styles */

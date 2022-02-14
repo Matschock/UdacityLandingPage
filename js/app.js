@@ -22,7 +22,6 @@
  * Define Global Variables
  * 
 */
-
 const main = document.querySelector('main');
 const navbar = document.querySelector('#navbar__list');
 const sections = main.querySelectorAll('section');
@@ -41,31 +40,48 @@ const sections = main.querySelectorAll('section');
 */
 
 // build the nav
-function populateNavBar(sections) {
-    // const sections = main.querySelectorAll('section');
-    // const fragment = navbar.createDocumentFragment(); 
+function populateNavBar() {
+    const fragment = document.createDocumentFragment(); 
     for (let section of sections){
         const newElement = document.createElement('li');
         const sectionTextContent = section.firstElementChild.children[0].textContent;
         const sectionID = section.id;
         newElement.innerHTML = `<a href="#${sectionID}" class="menu__link">${sectionTextContent}</a>`
-        // fragment.appendChild(newElement);
-        navbar.appendChild(newElement)
+        fragment.appendChild(newElement);
     }
-    // navbar.appendChild(fragment);
+    navbar.appendChild(fragment);
 } // End function populateNavBar
 
 
 // Add class 'active' to section when near top of viewport
+function makeActive(){
+    const lis = navbar.querySelectorAll('li');
+    for (li of lis) {
+        if (li.classList.contains('active')){
+            li.classList.remove('active')
+        }
+    }
+    for (const section of sections) {
+        const position = section.getBoundingClientRect();
+        if(position.top < 200 && position.bottom > 100) {
+            // Apply active state on the current section and the corresponding Nav link.
+            for (li of lis) {
+                idtag = li.textContent.split(" ").join("").toLowerCase();
+                if (idtag == section.id) {
+                    li.classList.add('active')
+                } else {
+                    li.classList.remove('active')
+                }
+            } 
+        }
+    }
+}
 
 
 // Scroll to anchor ID using scrollTO event
 function scrollToElement(evt) {
-    // console.log('NodeName: ' + evt.target.nodeName);
-    // console.log('TextContent: ' + evt.target.textContent);
     if (evt.target.nodeName.toLowerCase() === 'a') {
         idtag = "#" + evt.target.textContent.split(" ").join("").toLowerCase(); // get Test without Spaces, all Lowercase
-        // console.log(idtag);
         const currentSelection = document.querySelector(idtag)
         evt.preventDefault();
         window.scrollTo({ // scroll to section
@@ -82,7 +98,6 @@ function scrollToElement(evt) {
     }
 }
 
-
 /**
  * End Main Functions
  * Begin Events
@@ -90,11 +105,12 @@ function scrollToElement(evt) {
 */
 
 // Build menu 
-document.addEventListener('DOMContentLoaded', populateNavBar(sections));
-navbar.addEventListener('click', scrollToElement)
+document.addEventListener('DOMContentLoaded', populateNavBar);
 
 // Scroll to section on link click
+navbar.addEventListener('click', scrollToElement)
 
 // Set sections as active
+document.addEventListener('scroll', makeActive)
 
 
