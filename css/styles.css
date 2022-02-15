@@ -87,7 +87,19 @@ section {
 .navbar__menu .menu__link:hover {
     background: #333;
     color: #fff;
-    transition: ease 0.5s all;
+    transition: ease 1.0s all;
+}
+
+@media only screen and (min-width: 35em){
+    .navbar__menu .menu__link:hover {
+        background: white;
+        color: #000;
+    }
+    .navbar__menu .menu__link:active {
+        background: #333;
+        color: #fff;
+        transition: ease 1.0s all;
+    }
 }
 
 /* Header Styles */

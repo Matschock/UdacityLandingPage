@@ -56,23 +56,36 @@ function populateNavBar() {
 // Add class 'active' to section when near top of viewport
 function makeActive(){
     const lis = navbar.querySelectorAll('li');
+    let lastActiveSection = 0;
     for (li of lis) {
         if (li.classList.contains('active')){
             li.classList.remove('active')
         }
     }
+    // remove activeSection from all sections, so that only one section is active at a time
+    for (const section of sections) {
+        section.classList.remove('your-active-class')
+    }
+    // set active classes for li and section
     for (const section of sections) {
         const position = section.getBoundingClientRect();
-        if(position.top < 200 && position.bottom > 100) {
-            // Apply active state on the current section and the corresponding Nav link.
-            for (li of lis) {
-                idtag = li.textContent.split(" ").join("").toLowerCase();
-                if (idtag == section.id) {
-                    li.classList.add('active')
-                } else {
-                    li.classList.remove('active')
+        if(position.top < 200 && position.bottom > 100 ) {
+            if (section != lastActiveSection) {
+                // remove activeSection from all sections
+                for (const l2section of sections){
+                    l2section.classList.remove('your-active-class')
                 }
-            } 
+                // Apply active state on the current section and the corresponding Nav link.
+                for (const li of lis) {
+                    let idtag = li.textContent.split(" ").join("").toLowerCase();
+                    if (idtag == section.id) {
+                        li.classList.add('active')
+                    } else {
+                        li.classList.remove('active')
+                    }
+                }
+                section.classList.add('your-active-class')
+            }
         }
     }
 }
@@ -81,7 +94,7 @@ function makeActive(){
 // Scroll to anchor ID using scrollTO event
 function scrollToElement(evt) {
     if (evt.target.nodeName.toLowerCase() === 'a') {
-        idtag = "#" + evt.target.textContent.split(" ").join("").toLowerCase(); // get Test without Spaces, all Lowercase
+        const idtag = "#" + evt.target.textContent.split(" ").join("").toLowerCase(); // get Test without Spaces, all Lowercase
         const currentSelection = document.querySelector(idtag)
         evt.preventDefault();
         window.scrollTo({ // scroll to section
